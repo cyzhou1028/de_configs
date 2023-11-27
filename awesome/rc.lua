@@ -252,6 +252,20 @@ globalkeys = gears.table.join(
 			awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")
 		    end,
 		    {description = "increase volume", group = "system"}),
+		awful.key(
+		    { }, "XF86AudioMute",
+		    function() 
+			awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ 0%")
+		    end,
+		    {description = "mute volume", group = "system"}),
+
+    -- Brightness control (cyz 11_26_23)
+    
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.util.spawn("brightnessctl set 10%-") end),
+    awful.key({ }, "XF86MonBrightnessUp", function ()
+        awful.util.spawn("brightnessctl set +10%") end),
+        
 
 
 
@@ -326,6 +340,20 @@ globalkeys = gears.table.join(
                   end
               end,
               {description = "restore minimized", group = "client"}),
+
+    -- manually resizing windows
+    
+--    awful.key({ modkey, "Shift" }, "Next", function () awful.client.moveresize( 20, 20, -40, -40) end),
+--
+--    awful.key({ modkey, "Shift" }, "Prior", function () awful.client.moveresize(-20, -20, 40, 40) end),
+--
+--    awful.key({ modkey, "Shift" }, "Down", function () awful.client.moveresize( 0, 20, 0, 0) end),
+--
+--    awful.key({ modkey, "Shift" }, "Up", function () awful.client.moveresize( 0, -20, 0, 0) end),
+--
+--    awful.key({ modkey, "Shift" }, "Left", function () awful.client.moveresize(-20, 0, 0, 0) end),
+--
+--    awful.key({ modkey, "Shift" }, "Right", function () awful.client.moveresize( 20, 0, 0, 0) end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () 

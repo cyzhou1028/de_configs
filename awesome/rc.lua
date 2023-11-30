@@ -45,8 +45,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.useless_gap = 4
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
+-- beautiful.useless_gap = 4
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -262,9 +262,9 @@ globalkeys = gears.table.join(
     -- Brightness control (cyz 11_26_23)
     
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.util.spawn("brightnessctl set 10%-") end),
+        awful.util.spawn("brightnessctl set 5%-") end),
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.util.spawn("brightnessctl set +10%") end),
+        awful.util.spawn("brightnessctl set +5%") end),
         
 
 
@@ -360,9 +360,11 @@ globalkeys = gears.table.join(
 	    awful.util.spawn("dmenu_run") end,
 	    {description = "run dmenu", group = "menu"}),
     awful.key({ modkey },            "d",     function () 
-	    --awful.util.spawn("export LC_ALL=C") -- TODO: Hacky solution, figure out how to get locale to have this by default
 	    awful.util.spawn("rofi -show drun -show-icons") end,
 	    {description = "launch rofi", group = "menu"}),
+    awful.key({ modkey },            "\\",     function () 
+	    awful.util.spawn("firefox") end,
+	    {description = "open firefox", group = "browser"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -505,6 +507,13 @@ awful.rules.rules = {
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
+    },
+
+    {
+        rule_any = { class = {"Polybar"}},
+        properties = { focusable = false,
+                       border_width = 0
+        }
     },
 
     -- Floating clients.

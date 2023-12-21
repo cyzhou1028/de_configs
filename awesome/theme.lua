@@ -42,13 +42,13 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 -- Sizing
-theme.useless_gap         = dpi(4) -- window gap distance
+theme.useless_gap         = dpi(3) -- window gap distance
 --theme.gap_single_client   = true             -- gaps if only one window is open
 
 -- Window Borders
 theme.border_width          = dpi(4)            -- window border width
 theme.border_normal         = "#00000000"
-theme.border_focus          = "#00ff00"
+theme.border_focus          = "#00ffff"
 theme.border_marked         = theme.fg_urgent
 
 -- Titlebars

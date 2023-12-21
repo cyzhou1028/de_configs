@@ -64,7 +64,7 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.fair,
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
+    -- awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
@@ -245,7 +245,7 @@ globalkeys = gears.table.join(
 		    function() 
 			awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")
 		    end,
-		    {description = "lower volume", group = "system"}),
+		    {description = "decrease volume", group = "system"}),
 		awful.key(
 		    { }, "XF86AudioRaiseVolume",
 		    function()
@@ -255,17 +255,21 @@ globalkeys = gears.table.join(
 		awful.key(
 		    { }, "XF86AudioMute",
 		    function() 
-			awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ 0%")
+			--awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ 0%")
+            awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
 		    end,
 		    {description = "mute volume", group = "system"}),
 
     -- Brightness control (cyz 11_26_23)
     
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.util.spawn("brightnessctl set 5%-") end),
+        awful.util.spawn("brightnessctl set 5%-") end,
+        {description = "decrease brightness", group = "system"}),
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.util.spawn("brightnessctl set +5%") end),
+        awful.util.spawn("brightnessctl set +5%") end,
+        {description = "increase brightness", group = "system"}),
         
+
 
 
 
@@ -341,26 +345,13 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- manually resizing windows
-    
---    awful.key({ modkey, "Shift" }, "Next", function () awful.client.moveresize( 20, 20, -40, -40) end),
---
---    awful.key({ modkey, "Shift" }, "Prior", function () awful.client.moveresize(-20, -20, 40, 40) end),
---
---    awful.key({ modkey, "Shift" }, "Down", function () awful.client.moveresize( 0, 20, 0, 0) end),
---
---    awful.key({ modkey, "Shift" }, "Up", function () awful.client.moveresize( 0, -20, 0, 0) end),
---
---    awful.key({ modkey, "Shift" }, "Left", function () awful.client.moveresize(-20, 0, 0, 0) end),
---
---    awful.key({ modkey, "Shift" }, "Right", function () awful.client.moveresize( 20, 0, 0, 0) end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () 
 	    awful.util.spawn("dmenu_run") end,
 	    {description = "run dmenu", group = "menu"}),
     awful.key({ modkey },            "d",     function () 
-	    awful.util.spawn("rofi -show drun -show-icons") end,
+	    awful.util.spawn("rofi -show drun -show-icons -theme custom_theme") end,
 	    {description = "launch rofi", group = "menu"}),
     awful.key({ modkey },            "\\",     function () 
 	    awful.util.spawn("firefox") end,
@@ -423,6 +414,41 @@ clientkeys = gears.table.join(
             c:raise()
         end ,
         {description = "(un)maximize horizontally", group = "client"})
+    
+    -- Windows Resizing for floating clients (cyz 12_2_23)
+    
+--    awful.key({modkey, "Control"}, "Up",
+--	function(c)
+--		if c.floating then
+--			c:relative_move(0, 0, 0, -20)
+--		else
+--			awful.client.incwfact(0.025)
+--		end
+--	end, {description = "Floating Resize Vertical -", group = "client"}),
+--    awful.key({modkey, "Control"}, "Down",
+--        function(c)
+--            if c.floating then
+--                c:relative_move(0, 0, 0, 20)
+--            else
+--                awful.client.incwfact(-0.025)
+--            end
+--        end, {description = "Floating Resize Vertical +", group = "client"}),
+--    awful.key({modkey, "Control"}, "Left",
+--        function(c)
+--            if c.floating then
+--                c:relative_move(0, 0, -20, 0)
+--            else
+--                awful.tag.incmwfact(-0.025)
+--            end
+--        end, {description = "Floating Resize Horizontal -", group = "client"}),
+--    awful.key({modkey, "Control"}, "Right",
+--        function(c)
+--            if c.floating then
+--                c:relative_move(0, 0, 20, 0)
+--            else
+--                awful.tag.incmwfact(0.025)
+--            end
+--        end, {description = "Floating Resize Horizontal +", group = "client"})
 )
 
 -- Bind all key numbers to tags.

@@ -76,8 +76,12 @@ theme.tasklist_fg_normal = theme.fg_normal
 theme.tasklist_shape = gears.shape.rounded_bar
 
 
--- Notification Sizing
-theme.notification_max_width = dpi(350)
+-- Notification Settings
+
+theme.notification_max_width = dpi(500)
+theme.notification_width = dpi(500)
+theme.notification_font = "Iosevka Fixed Extended"
+theme.notification_opacity = 1
 
 
 --panel sizing

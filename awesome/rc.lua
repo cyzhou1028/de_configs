@@ -41,6 +41,22 @@ do
         in_error = false
     end)
 end
+
+-- Notification setup
+
+local nconf = naughty.config
+nconf.defaults.border_width = 5
+nconf.padding = 14
+nconf.spacing = 8
+nconf.presets.critical.bg = "#FF0000"
+nconf.presets.critical.fg = "#000000"
+
+nconf.presets.normal.bg = "#FFE900"
+nconf.presets.normal.fg = "#000000"
+
+nconf.presets.low.bg = "#00FF00"
+nconf.presets.low.fg = "#000000"
+
 -- }}}
 
 -- {{{ Variable definitions

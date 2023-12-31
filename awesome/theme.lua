@@ -81,7 +81,7 @@ theme.tasklist_shape = gears.shape.rounded_bar
 theme.notification_max_width = dpi(500)
 theme.notification_width = dpi(500)
 theme.notification_font = "Iosevka Fixed Extended"
-theme.notification_opacity = 1
+theme.notification_opacity = 1.0
 
 
 --panel sizing

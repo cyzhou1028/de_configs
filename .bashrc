@@ -189,6 +189,7 @@ function backlight() {
 # User defined aliases
 
 alias lock="xsecurelock"
+alias copydir="pwd | xclip -selection clipboard"
 
 # User defined environment variables
 
@@ -197,3 +198,5 @@ alias lock="xsecurelock"
 export XSECURELOCK_SHOW_DATETIME="1"
 export XSECURELOCK_PASSWORD_PROMPT="asterisks"
 export XSECURELOCK_AUTH_FOREGROUND_COLOR="Cyan"
+
+[ -f "/home/cyz/.ghcup/env" ] && source "/home/cyz/.ghcup/env" # ghcup-env

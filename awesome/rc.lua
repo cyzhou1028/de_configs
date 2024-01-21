@@ -677,5 +677,6 @@ awful.util.spawn_with_shell("batsignal")
 awful.util.spawn_with_shell("$HOME/.config/polybar/launch.sh; polybar")
 awful.util.spawn_with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("pgrep -u $USER -x nm-applet > /dev/null || (nm-applet &)")
+awful.util.spawn_with_shell("setxkbmap -option compose:ralt")
 
 

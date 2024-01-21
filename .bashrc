@@ -186,6 +186,27 @@ function backlight() {
     brightnessctl --device='tpacpi::kbd_backlight' set $1
 }
 
+function extend() {
+    if [ $# != 1 ]; then
+        echo $# "arguments received; expected 1"
+        return 1
+    fi
+    if [[ $1 != "left" && $1 != "right" ]]; then
+        echo "invalid arg:" $1
+        echo "argument must be \"left\" or \"right\""
+        return 1
+    fi
+    if [ $1 == "left" ]; then
+        xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
+        echo 'awesome.restart()' | awesome-client
+    fi
+    if [ $1 == "right" ]; then
+        xrandr --output eDP-1 --output HDMI-1 --right-of eDP-1 --auto
+        echo 'awesome.restart()' | awesome-client
+    fi
+}
+
+
 # User defined aliases
 
 alias lock="xsecurelock"
@@ -199,4 +220,11 @@ export XSECURELOCK_SHOW_DATETIME="1"
 export XSECURELOCK_PASSWORD_PROMPT="asterisks"
 export XSECURELOCK_AUTH_FOREGROUND_COLOR="Cyan"
 
+## Other environment variables
+
+export XCOMPOSEFILE="$HOME/.XCompose"
+
+
 [ -f "/home/cyz/.ghcup/env" ] && source "/home/cyz/.ghcup/env" # ghcup-env
+
+

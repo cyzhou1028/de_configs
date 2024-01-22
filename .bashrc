@@ -199,10 +199,14 @@ function extend() {
     if [ $1 == "left" ]; then
         xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
+        killall polybar
+        polybar
     fi
     if [ $1 == "right" ]; then
         xrandr --output eDP-1 --output HDMI-1 --right-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
+        killall polybar
+        polybar
     fi
 }
 

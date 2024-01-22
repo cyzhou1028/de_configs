@@ -10,7 +10,8 @@ rm -r awesome
 rm -r picom
 rm -r polybar
 rm -r rofi
-rm -r tlp
+rm -r nvim 
+rm tlp/tlp.conf
 
 
 cp ~/.bashrc .
@@ -21,6 +22,6 @@ cp -r ~/.config/awesome .
 cp -r ~/.config/picom .
 cp -r ~/.config/polybar .
 cp -r ~/.config/rofi .
-mkdir tlp
-sudo cp -r /etc/tlp.conf ./tlp
+cp -r ~/.config/nvim .
+sudo less /etc/tlp.conf >> tlp/tlp.conf
 

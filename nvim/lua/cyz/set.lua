@@ -15,3 +15,5 @@ vim.opt.backup = false
 vim.opt.termguicolors = true
 
 vim.cmd([[command! EssayMode source ~/.config/nvim/lua/cyz/essay_mode.lua]])
+vim.cmd([[command W w]])
+vim.cmd([[command Q q]])

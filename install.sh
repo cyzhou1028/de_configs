@@ -7,6 +7,7 @@ rm -r ~/.config/picom
 rm -r ~/.config/polybar
 rm -r ~/.config/rofi
 rm -r ~/.config/tmux
+rm -r ~/.config/nvim
 rm ~/.oh-my-bash/themes/powerline/powerline.theme.sh
 
 cp .bashrc ~
@@ -16,5 +17,6 @@ cp -r picom ~/.config
 cp -r polybar ~/.config
 cp -r rofi ~/.config
 cp -r tmux ~/.config
+cp -r nvim ~/.config
 cp oh_my_bash_powerline_theme_custom ~/.oh-my-bash/themes/powerline/
 mv ~/.oh-my-bash/themes/powerline/oh_my_bash_powerline_theme_custom ~/.oh-my-bash/themes/powerline/powerline.theme.sh

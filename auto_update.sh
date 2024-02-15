@@ -11,6 +11,7 @@ rm -r picom
 rm -r polybar
 rm -r rofi
 rm -r nvim 
+rm -r tmux 
 rm tlp/tlp.conf
 
 
@@ -23,5 +24,7 @@ cp -r ~/.config/picom .
 cp -r ~/.config/polybar .
 cp -r ~/.config/rofi .
 cp -r ~/.config/nvim .
+mkdir tmux
+cp -r ~/.config/tmux/tmux.conf tmux
 sudo less /etc/tlp.conf >> tlp/tlp.conf
 

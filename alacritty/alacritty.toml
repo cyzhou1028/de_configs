@@ -386,6 +386,7 @@ mods = "Shift"
 
 [window]
 opacity = 0.8
+decorations = "full"
 
 [window.padding]
 x = 8

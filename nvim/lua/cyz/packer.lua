@@ -6,6 +6,25 @@ return require('packer').startup(function(use)
       -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+--    use({
+--        'nanozuki/tabby.nvim',
+--        requires = { 'nvim-tree/nvim-web-devicons' },
+--        config = function()
+--            -- put config opts here
+--        end
+--    })
+
+
+    use "stevearc/dressing.nvim"
+    use({
+      "ziontee113/icon-picker.nvim",
+      config = function()
+        require("icon-picker").setup({
+          disable_legacy_commands = true
+        })
+      end,
+    })
+
 
 
     use {

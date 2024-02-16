@@ -114,24 +114,45 @@ function extend() {
         echo $# "arguments received; expected 1"
         return 1
     fi
-    if [[ $1 != "left" && $1 != "right" ]]; then
+    if [[ $1 != "left" && $1 != "right" ]] && [ $1 != "reset" ]; then
         echo "invalid arg:" $1
-        echo "argument must be \"left\" or \"right\""
+        echo "argument must be \"left\" or \"right\" or \"reset\""
         return 1
     fi
+    BG_PATH=$HOME/.config/nitrogen/bg-saved.cfg
+    BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
+    echo $BG
     if [ $1 == "left" ]; then
         xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
         killall polybar
         sleep 1
-        polybar
+        nitrogen --set-scaled --head=1 $BG &
+        sleep 1
+        nitrogen --set-scaled --head=0 $BG &
+        sleep 1
+        polybar &
     fi
     if [ $1 == "right" ]; then
         xrandr --output eDP-1 --output HDMI-1 --right-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
         killall polybar
         sleep 1
-        polybar
+        nitrogen --set-scaled --head=1 $BG &
+        sleep 1
+        nitrogen --set-scaled --head=0 $BG &
+        sleep 1
+        polybar &
+    fi
+    if [ $1 == "reset" ]; then
+        # should find a way to detect screen quantity and only trigger then
+        xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
+        echo 'awesome.restart()' | awesome-client
+        killall polybar
+        sleep 1
+        nitrogen --restore &
+        sleep 1
+        polybar &
     fi
 }
 

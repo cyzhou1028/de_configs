@@ -71,7 +71,7 @@ function imp() {
     if [ $# != 1 ]; then
         echo $# "arguments received; expected 1"
     elif [ $1 == "on" ]; then
-        conda activate improv_3_9
+        conda activate improv
         cd $HOME/Documents/research/improv
     elif [ $1 == "off" ]; then
         conda deactivate
@@ -154,6 +154,17 @@ function extend() {
         sleep 1
         polybar &
     fi
+}
+
+function extbg() {
+    if [ $# != 0 ]; then
+        echo $# "arguments received; expected 1"
+        return 1
+    fi
+    BG_PATH=$HOME/.config/nitrogen/bg-saved.cfg
+    BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
+    nitrogen --set-scaled --head=0 $BG &
+    nitrogen --set-scaled --head=1 $BG &
 }
 
 

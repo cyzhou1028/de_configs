@@ -127,9 +127,9 @@ function extend() {
         echo 'awesome.restart()' | awesome-client
         killall polybar
         sleep 1
-        nitrogen --set-scaled --head=1 $BG &
+        nitrogen --set-zoom-fill --head=1 $BG &
         sleep 1
-        nitrogen --set-scaled --head=0 $BG &
+        nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
         polybar &
     fi
@@ -138,9 +138,9 @@ function extend() {
         echo 'awesome.restart()' | awesome-client
         killall polybar
         sleep 1
-        nitrogen --set-scaled --head=1 $BG &
+        nitrogen --set-zoom-fill --head=1 $BG &
         sleep 1
-        nitrogen --set-scaled --head=0 $BG &
+        nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
         polybar &
     fi
@@ -163,8 +163,8 @@ function extbg() {
     fi
     BG_PATH=$HOME/.config/nitrogen/bg-saved.cfg
     BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
-    nitrogen --set-scaled --head=0 $BG &
-    nitrogen --set-scaled --head=1 $BG &
+    nitrogen --set-zoom-fill --head=0 $BG &
+    nitrogen --set-zoom-fill --head=1 $BG &
 }
 
 

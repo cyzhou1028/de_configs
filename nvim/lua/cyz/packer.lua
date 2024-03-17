@@ -16,6 +16,7 @@ return require('packer').startup(function(use)
 
 
     use "stevearc/dressing.nvim"
+
     use({
       "ziontee113/icon-picker.nvim",
       config = function()
@@ -46,6 +47,8 @@ return require('packer').startup(function(use)
         end
     })
 
+    use 'cyzhou1028/alabaster.nvim'
+
 --    use 'samueljoli/cyberpunk.nvim'
 
 --    use({
@@ -69,6 +72,8 @@ return require('packer').startup(function(use)
     })
 
     use ({ 'thedenisnikulin/vim-cyberpunk' })
+
+    use ({ 'echasnovski/mini.hipatterns' })
 
     use {
         'nvim-treesitter/nvim-treesitter',

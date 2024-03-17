@@ -27,4 +27,4 @@ cp -r ~/.config/nvim .
 mkdir tmux
 cp -r ~/.config/tmux/tmux.conf tmux
 sudo less /etc/tlp.conf >> tlp/tlp.conf
-
+sudo less /etc/tlp.d/00-template.conf >> tlp/tlp.d/00-template.conf

@@ -172,6 +172,7 @@ function extbg() {
 
 alias lock="xsecurelock"
 alias copydir="pwd | xclip -selection clipboard"
+alias browse="surf http://google.com"
 
 
 # User defined environment variables

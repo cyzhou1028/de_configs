@@ -1,4 +1,4 @@
-local words = { TODO =  '#ffff00', FIXME =  '#ff0000', NOTE =  '#00ff00', }
+local words = { TODO =  '#f0e851', FIXME =  '#f04d5a', NOTE =  '#7cff6e', }
   local word_color_group = function(_, match)
     local hex = words[match]
     if hex == nil then return nil end

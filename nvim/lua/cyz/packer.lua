@@ -14,7 +14,7 @@ return require('packer').startup(function(use)
 --        end
 --    })
 
-
+    use "DanilaMihailov/beacon.nvim"
     use "stevearc/dressing.nvim"
 
     use({

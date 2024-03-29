@@ -131,7 +131,8 @@ function extend() {
         sleep 1
         nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
-        polybar &
+        polybar --reload main &
+        polybar --reload secondary &
     fi
     if [ $1 == "right" ]; then
         xrandr --output eDP-1 --output HDMI-1 --right-of eDP-1 --auto
@@ -142,7 +143,8 @@ function extend() {
         sleep 1
         nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
-        polybar &
+        polybar --reload main &
+        polybar --reload secondary &
     fi
     if [ $1 == "reset" ]; then
         # should find a way to detect screen quantity and only trigger then

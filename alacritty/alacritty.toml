@@ -9,6 +9,7 @@ foreground = "#ffffff"
 size = 8.0
 
 [font.normal]
+# family = "Fixedsys Excelsior"
 family = "Iosevka Fixed Extended"
 style = "Regular"
 

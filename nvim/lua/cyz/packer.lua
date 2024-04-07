@@ -5,6 +5,26 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
       -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use ({ "catppuccin/nvim", as = "catppuccin" })
+    use 'lervag/vimtex'
+    use ({ 'VonHeikemen/lsp-zero.nvim', 
+        requires = {
+            {'folke/tokyonight.nvim'},
+            {'neovim/nvim-lspconfig'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/nvim-cmp'},
+            {'L3MON4D3/LuaSnip'},
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+        }
+    })
+    use({
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!:).
+        run = "make install_jsregexp"
+    })
 
 --    use({
 --        'nanozuki/tabby.nvim',

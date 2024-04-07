@@ -2,7 +2,6 @@
 --
 -- github_light_high_contrast
 -- github_dark
--- old_cyberpunk
 -- custom_cyberpunk
 -- silverhand
 -- alabaster

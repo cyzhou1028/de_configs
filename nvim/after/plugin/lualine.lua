@@ -3,6 +3,9 @@ local custom_theme = require'lualine.themes.iceberg_light'
 custom_theme.visual.a.bg = '#DFC5FE'
 custom_theme.visual.a.fg = '#800080'
 
+custom_theme.normal.b.bg = '#DDEEFF'
+custom_theme.normal.b.fg = '#282369'
+
 custom_theme.command = {
     a = {bg = '#6AA39C', fg = '#FFFFFF', gui = 'bold'},
     c = {bg = '#CAD0DE', fg = '#282369', gui = 'bold'}

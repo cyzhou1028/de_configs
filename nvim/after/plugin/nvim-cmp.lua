@@ -8,7 +8,7 @@ cmp.setup({
   completion = {
       keyword_length = 3,  -- number of characters before autocomplete suggestions trigger
 
-      -- NOTE: If autocomplete is false, then keywork length MUST be 0.
+      -- NOTE: If autocomplete is false, then keyword length MUST be 0.
 
       -- keyword_length = 0,
       -- autocomplete = false,

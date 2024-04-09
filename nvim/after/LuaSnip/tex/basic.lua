@@ -266,9 +266,9 @@ s({
   fmta(
     [[
         \quad\\
-      \begin{note}
+      \begin{example}
           <>
-      \end{note}
+      \end{example}
         \quad\\
     ]],
     {

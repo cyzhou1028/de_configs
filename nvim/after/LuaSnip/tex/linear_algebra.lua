@@ -1,4 +1,6 @@
 local ls = require("luasnip")
+local postfix = require("luasnip.extras.postfix").postfix
+local matches = require("luasnip.extras.postfix").matches
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
@@ -44,8 +46,8 @@ return {
         s({trig = '\\P', snippetType="autosnippet" , regTrig = true, wordTrig = false},
      fmta( [[\mathbb{P} ]], {} ), {condition = in_mathzone}
         ),
-        s({trig = '\\E', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-     fmta( [[\mathbb{E} ]], {} ), {condition = in_mathzone}
+        s({trig = '\\E', snippetType="autosnippet" , regTrig = true, wordTrig = false}, -- NOTE: maybe get rid of over?
+     fmta( [[\mathbb{E}_{<>} [<>] ]], {i(1, "<<<over>>>"), i(2, "<<<arg>>>")} ), {condition = in_mathzone}
         ),
         s({trig = '\\Hu', snippetType="autosnippet" , regTrig = true, wordTrig = false},
      fmta( [[\mathbb{H} ]], {} ), {condition = in_mathzone}
@@ -76,21 +78,20 @@ return {
         ),
 
     -- text expansion and literalization
-        
         s({trig = ' st ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[ such that ]], {} )
+            t(" such that ")
         ),
         s({trig = 'tfae ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[the following are equivalent]], {} )
+            fmta( [[the following are equivalent ]], {} )
         ),
         s({trig = 'Tfae ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[The following are equivalent]], {} )
+            fmta( [[The following are equivalent ]], {} )
         ),
         s({trig = 'bwoc ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[by way of contradiction]], {} )
+            fmta( [[by way of contradiction ]], {} )
         ),
         s({trig = 'Bwoc ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[By way of contradiction]], {} )
+            fmta( [[By way of contradiction ]], {} )
         ),
 
 
@@ -135,7 +136,24 @@ return {
         s({trig = '\\iscontainedineq', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[\subseteq ]], {} ), {condition = in_mathzone}
         ),
-        
-}
-    
 
+    -- postfix modifiers
+        s({trig = 'star', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            fmta( [[^{\ast}]], {} ), {condition = in_mathzone}
+        ),
+        postfix(".br",  {
+            f(function(_, parent)
+                return "[" .. parent.snippet.env.POSTFIX_MATCH .. "]"
+            end, {condition = in_mathzone}),
+        }),
+        postfix({trig = "hat", snippetType="autosnippet"}, {
+            f(function(_, parent)
+                return "\\hat{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
+            end, {condition = in_mathzone}),
+        }),
+        postfix({trig = "bar", snippetType="autosnippet"}, {
+            f(function(_, parent)
+                return "\\overline{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
+            end, {condition = in_mathzone}),
+        }),
+}

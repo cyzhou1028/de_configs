@@ -69,7 +69,7 @@ unset __conda_setup
 function imp() {
 
     if [ $# != 1 ]; then
-        echo $# "arguments received; expected 1"
+        echo $# "arguments received; expected 1 "
     elif [ $1 == "on" ]; then
         conda activate improv
         cd $HOME/Documents/research/improv
@@ -84,7 +84,7 @@ function imp() {
 
 function access() {
     if [ $# != 1 ]; then
-        echo $# "arguments received; expected 1"
+        echo $# "arguments received; expected 1 "
     elif [ $1 == "on" ]; then
         ecryptfs-mount-private
     elif [ $1 == "off" ]; then
@@ -98,7 +98,7 @@ function access() {
 
 function backlight() {
     if [ $# != 1 ]; then
-        echo $# "arguments received; expected 1"
+        echo $# "arguments received; expected 1 "
         return 1
     fi
     if [[ $1 != 0 && $1 != 1 && $1 != 2 ]]; then
@@ -111,7 +111,7 @@ function backlight() {
 
 function extend() {
     if [ $# != 1 ]; then
-        echo $# "arguments received; expected 1"
+        echo $# "arguments received; expected 1 "
         return 1
     fi
     if [[ $1 != "left" && $1 != "right" ]] && [ $1 != "reset" ]; then
@@ -185,6 +185,9 @@ export XSECURELOCK_SHOW_DATETIME="1"
 export XSECURELOCK_PASSWORD_PROMPT="asterisks"
 export XSECURELOCK_AUTH_FOREGROUND_COLOR="Cyan"
 
+## Taskd
+export TASKDDATA=/var/lib/taskd
+
 ## Other environment variables
 
 export XCOMPOSEFILE="$HOME/.XCompose"
@@ -206,3 +209,6 @@ eval "$(zoxide init --cmd cd bash)"
 [ -f "/home/cyz/.ghcup/env" ] && source "/home/cyz/.ghcup/env" # ghcup-env
 
 
+## On startup
+
+task

@@ -81,6 +81,9 @@ return {
         s({trig = ' st ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             t(" such that ")
         ),
+        s({trig = ' wrt ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            t(" with respect to ")
+        ),
         s({trig = 'tfae ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[the following are equivalent ]], {} )
         ),
@@ -98,30 +101,29 @@ return {
 
 
         s({trig = '\\rank', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{rank} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{rank } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\im', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{im} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{im } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\ker', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{ker} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{ker } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\dim', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{dim} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{dim } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\det', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{det} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{det } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\tr', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\textbf{tr} ]], {} ), {condition = in_mathzone}
+            fmta( [[\textbf{tr } ]], {} ), {condition = in_mathzone}
         ),
 
     -- set notation
-        
         s({trig = '\\set', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[\{<>\} ]], {
               i(1, "<<<contents>>>")
-            } ), 
+            } ),
             {condition = in_mathzone}
         ),
         s({trig = '\\contains', snippetType="autosnippet" , regTrig = true, wordTrig = false},
@@ -139,21 +141,39 @@ return {
 
     -- postfix modifiers
         s({trig = 'star', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[^{\ast}]], {} ), {condition = in_mathzone}
+            fmta( [[^\ast]], {} ), {condition = in_mathzone}
         ),
         postfix(".br",  {
             f(function(_, parent)
                 return "[" .. parent.snippet.env.POSTFIX_MATCH .. "]"
             end, {condition = in_mathzone}),
         }),
-        postfix({trig = "hat", snippetType="autosnippet"}, {
+        postfix({trig = "hat", snippetType="autosnippet", regTrig = true, wordTrig = false}, {
             f(function(_, parent)
                 return "\\hat{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
-            end, {condition = in_mathzone}),
-        }),
-        postfix({trig = "bar", snippetType="autosnippet"}, {
+            end),
+        }, {condition = in_mathzone}),
+        postfix({trig = "bar", snippetType="autosnippet", regTrig = true, wordTrig = false}, {
             f(function(_, parent)
                 return "\\overline{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
-            end, {condition = in_mathzone}),
-        }),
+            end),
+        }, {condition = in_mathzone}),
+        postfix({trig = "tilde", snippetType="autosnippet", regTrig = true, wordTrig = false}, {
+            f(function(_, parent)
+                return "\\tilde{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
+            end),
+        }, {condition = in_mathzone}),
+        postfix({trig = "vec", snippetType="autosnippet", regTrig = true, wordTrig = false}, {
+            f(function(_, parent)
+                return "\\vec{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
+            end),
+        }, {condition = in_mathzone}),
+
+    -- delimiters
+        s({trig = '\\lr', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            fmta( [[\left(<>\right) ]], {
+              i(1, "<<<contents>>>")
+            } ),
+            {condition = in_mathzone}
+        ),
 }

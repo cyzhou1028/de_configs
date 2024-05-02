@@ -54,7 +54,7 @@ s({
     snippetType="autosnippet"
   },
   fmta(
-    [[\prime ]],
+    [[^\prime ]],
     {
     }
   ),
@@ -105,11 +105,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{definition}
           <>
       \end{definition}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -123,11 +121,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{proposition}
           <>
       \end{proposition}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -141,11 +137,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{theorem}
           <>
       \end{theorem}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -159,11 +153,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{lemma}
           <>
       \end{lemma}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -177,11 +169,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{corollary}
           <>
       \end{corollary}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -195,11 +185,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{remark}
           <>
       \end{remark}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -223,7 +211,7 @@ s({
   )
 ),
 s({
-    trig="\\proofsketch", regTrig = true, wordTrig = false,
+    trig="\\sketch", regTrig = true, wordTrig = false,
     dscr="A proofsketch",
     snippetType="autosnippet"
   },
@@ -246,11 +234,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{note}
           <>
       \end{note}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),
@@ -265,11 +251,9 @@ s({
   },
   fmta(
     [[
-        \quad\\
       \begin{example}
           <>
       \end{example}
-        \quad\\
     ]],
     {
       i(1, "<<<contents>>>"),

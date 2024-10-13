@@ -51,17 +51,21 @@ source "$OSH"/oh-my-bash.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/cyz/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
+    if [ -f "/home/cyz/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/cyz/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/bin:$PATH"
+        export PATH="/home/cyz/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
+
+if [ -f "/home/cyz/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/home/cyz/miniforge3/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
 
 # User defined functions
@@ -146,6 +150,18 @@ function extend() {
         polybar --reload main &
         polybar --reload secondary &
     fi
+    if [ $1 == "top" ]; then
+        xrandr --output eDP-1 --output HDMI-1 --above eDP-1 --auto
+        echo 'awesome.restart()' | awesome-client
+        killall polybar
+        sleep 1
+        nitrogen --set-zoom-fill --head=1 $BG &
+        sleep 1
+        nitrogen --set-zoom-fill --head=0 $BG &
+        sleep 1
+        polybar --reload main &
+        polybar --reload secondary &
+    fi
     if [ $1 == "reset" ]; then
         # should find a way to detect screen quantity and only trigger then
         xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
@@ -156,6 +172,25 @@ function extend() {
         sleep 1
         polybar &
     fi
+}
+
+
+function mirror() {
+    if [ $# != 0 ]; then
+        echo $# "arguments received; expected 0 "
+        return 1
+    fi
+
+    BG_PATH=$HOME/.config/nitrogen/bg-saved.cfg
+    BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
+    echo $BG
+    xrandr --output eDP-1 --output HDMI-1 --same-as eDP-1
+    echo 'awesome.restart()' | awesome-client
+    killall polybar
+    sleep 1
+    nitrogen --restore &
+    sleep 1
+    polybar &
 }
 
 function extbg() {
@@ -179,10 +214,16 @@ alias browse="surf http://google.com"
 
 # User defined environment variables
 
+## tmux
+
+TERM=tmux-256color
+
+
 ## XSecureLock
 
 export XSECURELOCK_SHOW_DATETIME="1"
 export XSECURELOCK_PASSWORD_PROMPT="asterisks"
+export XSECURELOCK_AUTH_TIMEOUT="10"
 export XSECURELOCK_AUTH_FOREGROUND_COLOR="Cyan"
 
 ## Taskd
@@ -191,6 +232,7 @@ export TASKDDATA=/var/lib/taskd
 ## Other environment variables
 
 export XCOMPOSEFILE="$HOME/.XCompose"
+export QT_QPA_PLATFORMTHEME="qt5ct" 
 
 # Zoxide and statusline
 
@@ -211,4 +253,4 @@ eval "$(zoxide init --cmd cd bash)"
 
 ## On startup
 
-task
+# task

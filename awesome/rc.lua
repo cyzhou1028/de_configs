@@ -4,12 +4,16 @@ pcall(require, "luarocks.loader")
 
 -- Standard awesome library
 local gears = require("gears")
+local lain = require("lain")
 local awful = require("awful")
+local os = os
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+local dpi   = require("beautiful.xresources").apply_dpi
+
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -61,8 +65,25 @@ nconf.presets.low.fg = "#000000"
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
+local themes = {
+    "blackburn",       -- 1
+    "copland",         -- 2
+    "dremora",         -- 3
+    "holo",            -- 4
+    "multicolor",      -- 5
+    "powerarrow",      -- 6
+    "powerarrow-dark", -- 7
+    "rainbow",         -- 8
+    "steamburn",       -- 9
+    "vertex"           -- 10
+}
+
+local chosen_theme = themes[5]
+
+-- custom
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
--- beautiful.useless_gap = 4
+-- beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
+beautiful.useless_gap = 1
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -181,6 +202,93 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+-- ===========================================
+-- Wibar
+-- ===========================================
+
+local theme = {}
+theme.customdir                                       = os.getenv("HOME") .. "/.config/awesome/custom"
+theme.widget_battery                            = theme.customdir .. "/icons/battery.png"
+theme.widget_mem                                = theme.customdir .. "/icons/mem.png"
+theme.widget_cpu                                = theme.customdir .. "/icons/cpu.png"
+theme.widget_clock                              = theme.customdir .. "/icons/clock.png"
+theme.widget_net                                = theme.customdir .. "/icons/wifi.png"
+theme.widget_vol                                = theme.customdir .. "/icons/volume.png"
+
+local markup = lain.util.markup
+local label_fg = "#03fcb6"
+
+
+-- MEM
+
+local memicon = wibox.widget.imagebox(theme.widget_mem)
+local mem = lain.widget.mem({
+    settings = function()
+        widget:set_markup(markup(label_fg, " mem: ").. math.floor((mem_now.used / mem_now.total) * 100) .. "% ")
+    end
+})
+
+-- CPU
+
+local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
+local cpu = lain.widget.cpu({
+    settings = function()
+        widget:set_markup( markup(label_fg, " cpu: ") .. cpu_now.usage .. "% ")
+    end
+})
+
+-- Battery
+local baticon = wibox.widget.imagebox(theme.widget_battery)
+local bat = lain.widget.bat({
+    settings = function()
+        widget:set_markup(markup(label_fg, " bat: ") .. bat_now.perc .. "% ")
+    end
+})
+
+
+-- Pulse volume
+local volicon = wibox.widget.imagebox(theme.widget_vol)
+local volume = lain.widget.pulse({
+    settings = function()
+    end
+})
+
+-- Pulsebar
+local pulseicon = wibox.widget.imagebox(theme.widget_vol)
+local pulsebar = lain.widget.pulsebar({
+    settings = function()
+        widget:set_markup(markup(label_fg, " vol: ") .. volume_now.left .. "% ")
+    end
+})
+
+-- Network
+local wificon = wibox.widget.imagebox(theme.widget_net)
+local net_widgets = require("net_widgets")
+local net_wireless = net_widgets.wireless({interface="wlan0"})
+
+-- Textclock
+os.setlocale(os.getenv("LANG")) -- to localize the clock
+local clockicon = wibox.widget.imagebox(theme.widget_clock)
+local mytextclock = wibox.widget.textclock(markup(label_fg, " clk: ")..markup("#f6f6f6", " %B %d ") .. markup("#aa9ffb", ">") .. markup("#51a3f2", " %I:%M %p "), 1)
+mytextclock.font = theme.font
+
+-- Separator
+local sep = wibox.widget {
+    widget = wibox.widget.separator {
+        orientation = "vertical",
+        color = "#ffffff",
+        forced_width = 5,
+        thickness = 2,
+        opacity = 0.3
+    }
+}
+
+
+
+
+
+
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -202,8 +310,17 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
+        buttons = taglist_buttons,
+        style = {
+            fg_focus = "#000000",
+            bg_focus = label_fg,
+            fg_occupied = "#ffffff",
+            fg_empty = "#353535",
+            spacing = 6
+        }
     }
+
+    
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -213,24 +330,47 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "outside",
+
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
-            s.mypromptbox,
+            sep
         },
-        s.mytasklist, -- Middle widget
+--        -- s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
+--                        arrow(theme.bg_normal, "#343434"),
+--            wibox.container.background(wibox.container.margin(wibox.widget { mailicon, theme.mail and theme.mail.widget, layout = wibox.layout.align.horizontal }, dpi(4), dpi(7)), "#343434"),
+--            arrow("#343434", theme.bg_normal),
+--            arrow(theme.bg_normal, "#343434"),
+--            arrow("#343434", "#777E76"),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { mem.widget, layout = wibox.layout.align.horizontal }, dpi(2), dpi(3)), beautiful.bg_normal),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { cpu.widget, layout = wibox.layout.align.horizontal }, dpi(3), dpi(4)), beautiful.bg_normal),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { bat.widget, layout = wibox.layout.align.horizontal }, dpi(3), dpi(4)), beautiful.bg_normal),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { volume.widget, layout = wibox.layout.align.horizontal }, dpi(3), dpi(4)), beautiful.bg_normal),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { net_wireless, layout = wibox.layout.align.horizontal }, dpi(3), dpi(4)), beautiful.bg_normal),
+            sep,
+            wibox.container.background(wibox.container.margin(wibox.widget { mytextclock, layout = wibox.layout.align.horizontal }, dpi(3), dpi(4)), beautiful.bg_normal),
+            sep,
+
+--            arrow("#4B696D", "#4B3B51"),
+--            arrow("#4B3B51", "#CB755B"),
+--            arrow("#CB755B", "#8DAA9A"),
+--            arrow("#8DAA9A", "#C0C0A2"),
+--            arrow("#C0C0A2", "#777E76"),
+--            arrow("#777E76", "alpha"),
+--
         },
     }
 end)
@@ -329,7 +469,7 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Shift", "Control"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -369,6 +509,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "d",     function () 
 	    awful.util.spawn("rofi -show drun -show-icons -theme custom_theme") end,
 	    {description = "launch rofi", group = "menu"}),
+    awful.key({ modkey },            "q",     function () 
+	    awful.util.spawn("env XSECURELOCK_PASSWORD_PROMPT='asterisks' xsecurelock") end,
+	    {description = "lock screen", group = "screen"}),
     awful.key({ modkey },            "\\",     function () 
 	    awful.util.spawn("firefox") end,
 	    {description = "open firefox", group = "browser"}),
@@ -540,7 +683,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { border_width = 5,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
@@ -674,9 +817,10 @@ awful.util.spawn_with_shell("killall polybar")
 
 awful.util.spawn_with_shell("picom")
 awful.util.spawn_with_shell("batsignal")
-awful.util.spawn_with_shell("$HOME/.config/polybar/launch.sh; polybar")
+-- awful.util.spawn_with_shell("$HOME/.config/polybar/launch.sh; polybar")
 awful.util.spawn_with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("pgrep -u $USER -x nm-applet > /dev/null || (nm-applet &)")
 awful.util.spawn_with_shell("setxkbmap -option compose:ralt")
+awful.util.spawn_with_shell("xset r rate 200 40")
 
 

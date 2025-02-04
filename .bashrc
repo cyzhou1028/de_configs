@@ -51,21 +51,17 @@ source "$OSH"/oh-my-bash.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/cyz/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/cyz/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/cyz/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/cyz/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/home/cyz/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/cyz/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/cyz/miniforge3/bin:$PATH"
+        export PATH="/home/cyz/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
-
-if [ -f "/home/cyz/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/cyz/miniforge3/etc/profile.d/mamba.sh"
-fi
 # <<< conda initialize <<<
 
 # User defined functions
@@ -127,50 +123,39 @@ function extend() {
     BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
     echo $BG
     if [ $1 == "left" ]; then
-        xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
+        xrandr --output eDP-1 --output HDMI-1-0 --left-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
-        killall polybar
         sleep 1
         nitrogen --set-zoom-fill --head=1 $BG &
         sleep 1
         nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
-        polybar --reload main &
-        polybar --reload secondary &
     fi
     if [ $1 == "right" ]; then
-        xrandr --output eDP-1 --output HDMI-1 --right-of eDP-1 --auto
+        xrandr --output eDP-1 --output HDMI-1-0 --right-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
-        killall polybar
         sleep 1
         nitrogen --set-zoom-fill --head=1 $BG &
         sleep 1
         nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
-        polybar --reload main &
-        polybar --reload secondary &
     fi
     if [ $1 == "top" ]; then
-        xrandr --output eDP-1 --output HDMI-1 --above eDP-1 --auto
+        xrandr --output eDP-1 --output HDMI-1-0 --above eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
-        killall polybar
         sleep 1
         nitrogen --set-zoom-fill --head=1 $BG &
         sleep 1
         nitrogen --set-zoom-fill --head=0 $BG &
         sleep 1
-        polybar --reload main &
-        polybar --reload secondary &
     fi
     if [ $1 == "reset" ]; then
         # should find a way to detect screen quantity and only trigger then
-        xrandr --output eDP-1 --output HDMI-1 --left-of eDP-1 --auto
+        xrandr --output eDP-1 --output HDMI-1-0 --left-of eDP-1 --auto
         echo 'awesome.restart()' | awesome-client
-        killall polybar
         sleep 1
         nitrogen --restore &
         sleep 1
-        polybar &
     fi
 }
 
@@ -184,13 +169,11 @@ function mirror() {
     BG_PATH=$HOME/.config/nitrogen/bg-saved.cfg
     BG=$(awk -F '=' '/file=/{print $2}' $BG_PATH)
     echo $BG
-    xrandr --output eDP-1 --output HDMI-1 --same-as eDP-1
+    xrandr --output eDP-1 --output HDMI-1-0 --same-as eDP-1
     echo 'awesome.restart()' | awesome-client
-    killall polybar
     sleep 1
     nitrogen --restore &
     sleep 1
-    polybar &
 }
 
 function extbg() {
@@ -209,7 +192,10 @@ function extbg() {
 
 alias lock="xsecurelock"
 alias copydir="pwd | xclip -selection clipboard"
-alias browse="surf http://google.com"
+
+function note() {
+     python ~/Documents/personal/reports/utils/notemaker.py -t $1
+}
 
 
 # User defined environment variables
@@ -241,6 +227,9 @@ NC='\033[0m' # No Color
 export _ZO_ECHO=1
 eval "$(zoxide init --cmd cd bash)"
 
+# inkscape
+alias inkmgr="python /home/cyz/Documents/sandbox/inkscape-shortcut-manager/main.py"
+
 # colored pwd output
 # alias pwd="echo -e '${MAGENTA}$PWD${NC}'"
 
@@ -250,7 +239,6 @@ eval "$(zoxide init --cmd cd bash)"
 
 [ -f "/home/cyz/.ghcup/env" ] && source "/home/cyz/.ghcup/env" # ghcup-env
 
-
 ## On startup
 
-# task
+setxkbmap -option caps:swapescape

@@ -14,3 +14,12 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
   },
 })
+
+local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
+
+cmp.setup({
+  performance = {
+      max_view_entries = 5
+  }
+})

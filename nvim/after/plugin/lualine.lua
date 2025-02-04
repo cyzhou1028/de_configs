@@ -18,7 +18,7 @@ custom_theme.insert.c = {bg = '#CAD0DE', fg = '#9CAED6', gui = 'bold'}
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = custom_theme, --set to 'auto' for different colorschemes
+    theme = "auto", --set to 'auto' for different colorschemes
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {

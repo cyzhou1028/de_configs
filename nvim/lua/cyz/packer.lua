@@ -1,5 +1,3 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
@@ -36,7 +34,20 @@ return require('packer').startup(function(use)
 
     use "DanilaMihailov/beacon.nvim"
     use "stevearc/dressing.nvim"
+    use "sphamba/smear-cursor.nvim"
+    use 'karb94/neoscroll.nvim'
 
+    use "chentoast/marks.nvim"
+
+--    use "m4xshen/autoclose.nvim"
+    use {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup {}
+        end
+    }
+    use "onsails/lspkind.nvim"
     use({
       "ziontee113/icon-picker.nvim",
       config = function()
@@ -68,6 +79,7 @@ return require('packer').startup(function(use)
     })
 
     use 'cyzhou1028/alabaster.nvim'
+    use 'slugbyte/lackluster.nvim'
 
 --    use 'samueljoli/cyberpunk.nvim'
 

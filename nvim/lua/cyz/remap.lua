@@ -18,3 +18,12 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
+vim.keymap.set({"i", "s"}, "<Tab>",
+function()
+    if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+    else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+    end
+end,  
+{silent = true})

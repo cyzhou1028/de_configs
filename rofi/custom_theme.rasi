@@ -6,8 +6,6 @@
 
 * {
     selected-normal-foreground:  rgba ( 2, 20, 63, 100 % );
-    foreground:                  rgba ( 255, 90, 68, 100 % );
-    normal-foreground:           @foreground;
     alternate-normal-background: rgba ( 0, 0, 0, 0 % );
     red:                         rgba ( 220, 50, 47, 100 % );
     selected-urgent-foreground:  rgba ( 2, 20, 63, 100 % );
@@ -18,17 +16,25 @@
     lightbg:                     rgba ( 238, 232, 213, 100 % );
     selected-active-foreground:  rgba ( 2, 20, 63, 100 % );
     alternate-active-background: rgba ( 0, 0, 0, 0 % );
-    background:                  rgba ( 16, 4, 0, 100 % );
-    bordercolor:                 rgba ( 219, 223, 188, 100 % );
-    alternate-normal-foreground: @foreground;
     normal-background:           rgba ( 0, 0, 208, 0 % );
     lightfg:                     rgba ( 88, 104, 117, 100 % );
+
+
     /* CYBERPUNK CYAN */
-    /* selected-normal-background:  rgba ( 2, 216, 243, 100 % ); */
-    selected-normal-background:  rgba ( 255, 90, 68, 100 % );
+    selected-normal-background:  rgba ( 2, 216, 243, 100 % );
+    background:                  rgba ( 4, 0, 24, 100 % );
+    foreground:                  rgba ( 90, 120, 255, 100 % );
+    /* CYBERPUNK RED */
+    /* selected-normal-background:  rgba ( 255, 90, 68, 100 % ); */
+    /* background:                  rgba ( 16, 4, 0, 100 % ); */
+    /* foreground:                  rgba ( 255, 90, 68, 100 % ); */
+
+
+    normal-foreground:           @foreground;
     border-color:                @foreground;
+    alternate-normal-foreground: @foreground;
+    separatorcolor:              @foreground;
     spacing:                     2;
-    separatorcolor:              rgba ( 255, 90, 68, 100 % );
     urgent-background:           rgba ( 0, 0, 208, 0 % );
     selected-urgent-background:  rgba ( 255, 129, 127, 100 % );
     alternate-urgent-foreground: @urgent-foreground;

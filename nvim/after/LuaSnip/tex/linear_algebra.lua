@@ -103,7 +103,7 @@ return {
         s({trig = '\\rank', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[\textbf{rank } ]], {} ), {condition = in_mathzone}
         ),
-        s({trig = '\\im', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+        s({trig = '\\im ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[\textbf{im } ]], {} ), {condition = in_mathzone}
         ),
         s({trig = '\\ker', snippetType="autosnippet" , regTrig = true, wordTrig = false},
@@ -126,20 +126,12 @@ return {
             } ),
             {condition = in_mathzone}
         ),
-        s({trig = '\\contains', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\supset ]], {} ), {condition = in_mathzone}
-        ),
-        s({trig = '\\containseq', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\supseteq ]], {} ), {condition = in_mathzone}
-        ),
-        s({trig = '\\iscontainedin', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\subset ]], {} ), {condition = in_mathzone}
-        ),
-        s({trig = '\\iscontainedineq', snippetType="autosnippet" , regTrig = true, wordTrig = false},
-            fmta( [[\subseteq ]], {} ), {condition = in_mathzone}
-        ),
 
     -- postfix modifiers
+        -- NOTE: ordering of the next two in this source document matters
+        s({trig = 'refstar', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            fmta( [[$(\star)$]], {} )
+        ),
         s({trig = 'star', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[^\ast]], {} ), {condition = in_mathzone}
         ),
@@ -170,8 +162,20 @@ return {
         }, {condition = in_mathzone}),
 
     -- delimiters
-        s({trig = '\\lr', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+        s({trig = '\\lrp', snippetType="autosnippet" , regTrig = true, wordTrig = false},
             fmta( [[\left(<>\right) ]], {
+              i(1, "<<<contents>>>")
+            } ),
+            {condition = in_mathzone}
+        ),
+        s({trig = '\\lrb', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            fmta( [[\left[<>\right] ]], {
+              i(1, "<<<contents>>>")
+            } ),
+            {condition = in_mathzone}
+        ),
+        s({trig = '\\lrc', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+            fmta( [[\left\{<>\right\} ]], {
               i(1, "<<<contents>>>")
             } ),
             {condition = in_mathzone}

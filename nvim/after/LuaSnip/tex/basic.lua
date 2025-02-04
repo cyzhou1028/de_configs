@@ -1,8 +1,8 @@
 local ls = require("luasnip")
+
 local s = ls.snippet
 local sn = ls.snippet_node
-local t = ls.text_node
-local i = ls.insert_node
+local t = ls.text_node local i = ls.insert_node
 local f = ls.function_node
 local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
@@ -49,12 +49,24 @@ s({trig = '([^%a])ff', regTrig = true, wordTrig = false},
   {condition = in_mathzone}
 ),
 s({
-    trig = '\\pr', regTrig = true, wordTrig = false,
+    trig = 'prime', regTrig = true, wordTrig = false,
     dscr="prime macro",
     snippetType="autosnippet"
   },
   fmta(
     [[^\prime ]],
+    {
+    }
+  ),
+  {condition = in_mathzone}
+),
+s({
+    trig = '\\exists', regTrig = true, wordTrig = false,
+    dscr="prime macro",
+    snippetType="autosnippet"
+  },
+  fmta(
+    [[\exists\, ]],
     {
     }
   ),
@@ -72,6 +84,30 @@ s({
   ),
   {condition = in_mathzone}
 ),
+s({
+    trig = '\\timplies',regTrig = true, wordTrig = false, 
+    snippetType="autosnippet"
+  },
+  fmta(
+    [[\stackrel{\text{<>}}{\implies}]],
+    {
+      i(1, "<<<reason>>>"),
+    }
+  ),
+  {condition = in_mathzone}
+),
+s({
+    trig = '\\tequals',regTrig = true, wordTrig = false, 
+    snippetType="autosnippet"
+  },
+  fmta(
+    [[\stackrel{\text{<>}}{=}]],
+    {
+      i(1, "<<<reason>>>"),
+    }
+  ),
+  {condition = in_mathzone}
+),
 s({trig = "tii", dscr = "Expands 'tii' into LaTeX's textit{} command."},
   fmta("\\textit{<>}",
     {
@@ -79,9 +115,33 @@ s({trig = "tii", dscr = "Expands 'tii' into LaTeX's textit{} command."},
     }
   )
 ),
-
+s({trig = '\\imp ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+    fmta("\\item[$\\implies$] $<>$", {i(1, "<<<implication>>>")})
+),
+s({trig = '\\timp ', snippetType="autosnippet" , regTrig = true, wordTrig = false},
+    fmta("\\item[$\\stackrel{\\text{<>}}{\\implies}$] $<>$", 
+    {i(1, "<<<reason>>>"), i(2, "<<<implication>>>")})
+),
 s({
     trig="([^%a])env", regTrig = true, wordTrig = false,
+    dscr="A generic new environment",
+    snippetType="autosnippet"
+  },
+  fmta(
+    [[
+      \begin{<>}
+          <>
+      \end{<>}
+    ]],
+    {
+      i(1, "<<<name>>>"),
+      i(2, "<<<contents>>>"),
+      rep(1),
+    }
+  )
+),
+s({
+    trig="^env", regTrig = true, wordTrig = false,
     dscr="A generic new environment",
     snippetType="autosnippet"
   },

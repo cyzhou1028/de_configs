@@ -262,7 +262,6 @@ local pulsebar = lain.widget.pulsebar({
 })
 
 -- Network
-local wificon = wibox.widget.imagebox(theme.widget_net)
 local net_widgets = require("net_widgets")
 local net_wireless = net_widgets.wireless({interface="wlan0"})
 
@@ -330,7 +329,15 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s})
+    -- awful.screen.set_auto_dpi_enabled( true )
+    s.mywibox = awful.wibar({ 
+        position = "top", 
+        screen = s,
+        --height = 55
+    })
+
+
+
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -507,7 +514,7 @@ globalkeys = gears.table.join(
 	    awful.util.spawn("dmenu_run") end,
 	    {description = "run dmenu", group = "menu"}),
     awful.key({ modkey },            "d",     function () 
-	    awful.util.spawn("rofi -show drun -show-icons -theme custom_theme") end,
+	    awful.util.spawn("rofi -show drun -show-icons -theme custom_theme -dpi 1 -font \"Iosevka Fixed Extended 10\"") end,
 	    {description = "launch rofi", group = "menu"}),
     awful.key({ modkey },            "q",     function () 
 	    awful.util.spawn("env XSECURELOCK_PASSWORD_PROMPT='asterisks' xsecurelock") end,
@@ -821,6 +828,7 @@ awful.util.spawn_with_shell("batsignal")
 awful.util.spawn_with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("pgrep -u $USER -x nm-applet > /dev/null || (nm-applet &)")
 awful.util.spawn_with_shell("setxkbmap -option compose:ralt")
+awful.util.spawn_with_shell("setxkbmap -option caps:swapescape")
 awful.util.spawn_with_shell("xset r rate 200 40")
 
 
